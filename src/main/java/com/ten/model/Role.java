@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -19,7 +20,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = User.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinTable(name = "user_roles",
             joinColumns = {@JoinColumn(name = "role_id")}
             //inverseJoinColumns = {@JoinColumn(name = "user_id")}
@@ -43,6 +44,7 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -69,6 +71,7 @@ public class Role implements GrantedAuthority {
         return "user";
     }
 
+    @JsonIgnore
     public String getAuthority() {
         return name;
     }

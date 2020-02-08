@@ -1,5 +1,6 @@
 package com.ten.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,8 +30,10 @@ public class User implements UserDetails {
 
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = true;
+
 
     public Set<Role> getRoles() {
         return roles;
@@ -95,6 +98,7 @@ public class User implements UserDetails {
         this.login = login;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -105,23 +109,25 @@ public class User implements UserDetails {
         return password;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return login;
     }
 
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
+    @JsonIgnore
     public boolean isEnabled() {
         return enabled;
     }
