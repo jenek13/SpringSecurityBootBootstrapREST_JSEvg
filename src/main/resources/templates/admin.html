@@ -46,28 +46,35 @@
                     <th>Delete</th>
                     <th>Edit</th>
                 </tr>
-                <script>
-                    $(document).ready(function(){
-                        alert("1");
-                        $.ajax({
-                            url: '/rest/adminrest',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (response) {
-                                var trHTML = '';
-                                $.each(response, function (i, item) {
-                                    trHTML += '<tr>' +
-                                        '<td>' + item.id + '</td>' +
-                                        '<td>' + item.login + '</td>' +
-                                        '<td>' + item.password +'</td>' +
-                                        '<td>' + item.roles[0].name + '</td>' +
-                                        '</tr>';
-                                });
-                                $('#table').append(trHTML);
-                            }
-                        });
-                    });
-                </script>
+
+
+<!--                <script>-->
+<!--                    $(document).ready(function(){-->
+<!--                        $.ajax({-->
+<!--                            url: '/rest/adminrest',-->
+<!--                            type: 'GET',-->
+<!--                            dataType: 'json',-->
+<!--                            success: function (response) {-->
+<!--                                var trHTML = '';-->
+<!--                                $.each(response, function (i, item) {-->
+<!--                                    trHTML += '<tr>' +-->
+<!--                                        '<td>' + item.id + '</td>' +-->
+<!--                                        '<td>' + item.login + '</td>' +-->
+<!--                                        '<td>' + item.password +'</td>' +-->
+<!--                                        '<td>' + item.roles[0].name + '</td>' +-->
+<!--                                        '<td><button onclick="deleteUser(item[i].id)" >Delete</button></td>' +-->
+<!--                                        '<td><button onclick="openEditForm(item[i].id)" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> Edit</button></td>'-->
+<!--                                        '</tr>';-->
+<!--                                });-->
+<!--                                $('#table').append(trHTML);-->
+<!--                            }-->
+<!--                        });-->
+<!--                    });-->
+<!--               </script>-->
+
+
+
+
 <!--                <tr th:each="user : ${users}">-->
 <!--                    <td th:text="${user.id}"></td>-->
 <!--                    <td th:text="${user.login}"></td>-->
@@ -75,7 +82,8 @@
 <!--                    <td th:text="${user.roles}"></td>-->
 <!--                    <td><a th:href="@{/admin/delete/{id}(id=${user.id})}" class="btn btn-info btn-lg"></a>Delete</td>-->
 <!--                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${user.id}">Edit </button>-->
-<!--                    &lt;!&ndash;                            <div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${user.id}">&ndash;&gt;-->
+
+<!--                    <div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${user.id}">-->
 <!--                    <div class="modal-dialog">-->
 <!--                        &lt;!&ndash; Modal content&ndash;&gt;-->
 <!--                        <div class="modal-content">-->
@@ -128,39 +136,39 @@
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <h4>Add new user</h4>
-                <div class="container my-5">
-                    <h3> Add User</h3>
-                    <div class="card">
-                        <div class="card-body">
-                            <form action="#" th:action="@{/admin}" th:object="${user}" method="post">
-                                <div class="row">
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label class="col-form-label">Login</label> <input type="text" name="login" th:name="login" class="form-control" >
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label class="col-form-label">Password</label> <input type="text" name="password"  th:name="password" class="form-control" >
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label class="col-form-label">Role</label>
+<!--            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">-->
+<!--                <h4>Add new user</h4>-->
+<!--                <div class="container my-5">-->
+<!--                    <h3> Add User</h3>-->
+<!--                    <div class="card">-->
+<!--                        <div class="card-body">-->
+<!--                            <form action="#" th:action="@{/admin}" th:object="${user}" method="post">-->
+<!--                                <div class="row">-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-md-8">-->
+<!--                                    <label class="col-form-label">Login</label> <input type="text" name="login" th:name="login" class="form-control" >-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-md-8">-->
+<!--                                    <label class="col-form-label">Password</label> <input type="text" name="password"  th:name="password" class="form-control" >-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-md-8">-->
+<!--                                    <label class="col-form-label">Role</label>-->
 
-                                    <select class="form-control" name="role" th:name="role">
-                                        <option value="user">user</option>
-                                        <option value="admin">admin</option>
-                                        <option value="admin, user">admin, user</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="submit" class="btn btn-primary" value="Add User">
-                                </div>
-                                <div class="form-group col-md-8"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--                                    <select class="form-control" name="role" th:name="role">-->
+<!--                                        <option value="user">user</option>-->
+<!--                                        <option value="admin">admin</option>-->
+<!--                                        <option value="admin, user">admin, user</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <input type="submit" class="btn btn-primary" value="Add User">-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-md-8"></div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
     </div>
@@ -172,7 +180,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="ajax_methods.js"></script>
+<script src="/ajax_methods.js"></script>
 
 
 

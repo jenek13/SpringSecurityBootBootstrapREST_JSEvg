@@ -13,7 +13,6 @@ import com.ten.service.RoleService;
 import com.ten.service.UserService;
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller("/admin")
@@ -77,11 +76,11 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/admin/delete/{id}")
-    public String deleteUser(Model model, @PathVariable("id") Long id) {
-        userService.deleteUser(id);
+    /*@GetMapping(value = "/admin/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        //userService.deleteUser(id);
         return "redirect:/admin";
-    }
+    }*/
 
     @GetMapping(value = {"/user"})
     public ModelAndView userPage() {
