@@ -60,21 +60,20 @@ public class AdminController {
     @GetMapping(value = {"/admin/edit/{id}"})
     public ModelAndView editUser(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView("edit");
-        model.addObject("user", userService.selectUser(id));
+        //model.addObject("user", userService.selectUser(id));
         return model;
     }
 
-    @RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
-    String updateUser(@Valid  @ModelAttribute("user")User user, @ModelAttribute("role") Role role) {
-        User user1 = userService.selectUser(user.getId());
-        user1.setId(user.getId());
-        user1.setLogin(user.getLogin());
-        user1.setPassword(user.getPassword());
-        //user1.setRoles(user.getRoles());
-        user1.setRoles(getRoles(role.getName()));
-        userService.insertUser(user1);
-        return "redirect:/admin";
-    }
+//    @RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
+//    String updateUser(@Valid  @ModelAttribute("user")User user, @ModelAttribute("role") Role role) {
+//        User user1 = userService.selectUser(user.getId());
+//        user1.setId(user.getId());
+//        user1.setLogin(user.getLogin());
+//        user1.setPassword(user.getPassword());
+//        user1.setRoles(getRoles(role.getName()));
+//        userService.insertUser(user1);
+//        return "redirect:/admin";
+//    }
 
     /*@GetMapping(value = "/admin/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {

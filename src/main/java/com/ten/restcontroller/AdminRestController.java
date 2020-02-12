@@ -64,10 +64,8 @@ public class AdminRestController {
     }
 
     @GetMapping(value = {"/admin/edit/{id}"})
-    public ModelAndView editUser(@PathVariable("id") Long id) {
-        ModelAndView model = new ModelAndView("edit");
-        model.addObject("user", userService.selectUser(id));
-        return model;
+    public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.selectUser(id));
     }
 
     @RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
@@ -76,7 +74,6 @@ public class AdminRestController {
         user1.setId(user.getId());
         user1.setLogin(user.getLogin());
         user1.setPassword(user.getPassword());
-        //user1.setRoles(user.getRoles());
         user1.setRoles(getRoles(role.getName()));
         userService.insertUser(user1);
         return "redirect:/admin";
