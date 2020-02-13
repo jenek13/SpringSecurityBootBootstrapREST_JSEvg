@@ -48,14 +48,14 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping(value = {"/admin"})//создание
-    public String addUser(@RequestParam("login") String login, @RequestParam("password") String password,
-                          @RequestParam(value = "role", required = false) String role) {
-        User user = new User(login, password, true);
-        user.setRoles(getRoles(role));
-        userService.insertUser(user);
-        return "redirect:/admin";
-    }
+//    @PostMapping(value = {"/admin"})//создание
+//    public String addUser(@RequestParam("login") String login, @RequestParam("password") String password,
+//                          @RequestParam(value = "role", required = false) String role) {
+//        User user = new User(login, password, true);
+//        user.setRoles(getRoles(role));
+//        userService.insertUser(user);
+//        return "redirect:/admin";
+//    }
 
     @GetMapping(value = {"/admin/edit/{id}"})
     public ModelAndView editUser(@PathVariable("id") Long id) {

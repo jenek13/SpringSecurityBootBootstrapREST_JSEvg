@@ -21,10 +21,10 @@ public class Role implements GrantedAuthority {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = User.class)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "role_id")}
-            //inverseJoinColumns = {@JoinColumn(name = "user_id")}
-            )
+//    @JoinTable(name = "user_roles",
+//            joinColumns = {@JoinColumn(name = "role_id")}
+//            //inverseJoinColumns = {@JoinColumn(name = "user_id")}
+//            )
 
     @JsonIgnore
     private Set<User> users = new HashSet<>();;

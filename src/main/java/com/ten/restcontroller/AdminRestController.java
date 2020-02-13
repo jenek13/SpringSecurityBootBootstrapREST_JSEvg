@@ -48,20 +48,40 @@ public class AdminRestController {
 
 
 
-    /*@PostMapping(value = {"/admin"})//создание
-    public String addUser(@RequestParam("login") String login, @RequestParam("password") String password,
-                          @RequestParam(value = "role", required = false) String role) {
-        User user = new User(login, password, true);
-        user.setRoles(getRoles(role));
-        userService.insertUser(user);
-        return "redirect:/admin";
-    }*/
+//    @PostMapping(value = {"/admin"})//создание
+//    public String addUser(@RequestParam("login") String login, @RequestParam("password") String password,
+//                          @RequestParam(value = "role", required = false) String role) {
+//        User user = new User(login, password, true);
+//        user.setRoles(getRoles(role));
+//        userService.insertUser(user);
+//        return "redirect:/admin";
+//    }
 
-    @PostMapping("/admin")
-    public ResponseEntity<Void> saveOrUpdateCompany(@RequestBody User user) {
+//    @PostMapping("/admin/create")
+//    public ResponseEntity<Void> addUser(@RequestBody User user
+//            ,  @RequestParam(value = "role", required = false) String role
+//    ) {
+//        //String role = null;
+//        //role = user.getRoles().iterator().next().getName();
+//        user.setRoles(getRoles(role));
+//        //String role1 =  user.setRoles(getRoles(role));
+//        userService.insertUser(user);
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//    }
+
+
+
+    @PostMapping("/admin/create")
+    public ResponseEntity<Void> addUser(@RequestBody User user
+                                        //,  @RequestParam(value = "role", required = false) String role
+    ) {
+        String role = null;
+        role = user.getRoles().iterator().next().getName();
+        user.setRoles(getRoles(role));
         userService.insertUser(user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
 
     @GetMapping(value = {"/admin/edit/{id}"})
     public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
@@ -78,13 +98,6 @@ public class AdminRestController {
         userService.insertUser(user1);
         return "redirect:/admin";
     }
-
-    /*@GetMapping(value = "/admin/delete/{id}")
-    public String deleteUser(Model model, @PathVariable("id") Long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin";
-    }*/
-
 
     @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
@@ -114,10 +127,6 @@ public class AdminRestController {
                 roles.add(roleService.getRoleById(1L));
                 break;
             case "user":
-                roles.add(roleService.getRoleById(2L));
-                break;
-            case "admin, user":
-                roles.add(roleService.getRoleById(1L));
                 roles.add(roleService.getRoleById(2L));
                 break;
             default:

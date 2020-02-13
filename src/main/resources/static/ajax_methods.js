@@ -43,6 +43,24 @@ $(document).ready(function(){
 });
 
 
+function saveUser() {
+    var login = $('#login').val();
+    var password = $('#password').val();
+
+    $.ajax({
+        url: '/rest/admin/create',
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify({
+            username: login,
+            password: password,
+
+        })
+
+    });
+    
+}
+
 //openEditForm
 function openEditForm(id) {
     $.ajax({
