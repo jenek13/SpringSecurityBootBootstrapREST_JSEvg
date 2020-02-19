@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +28,9 @@ public class Role implements GrantedAuthority {
 //            )
 
     @JsonIgnore
-    private Set<User> users = new HashSet<>();;
+    private Set<User> users = new HashSet<>();
+    //private List<User> users = new ArrayList<>();
+
 
     public Role() {
     }
@@ -39,6 +42,12 @@ public class Role implements GrantedAuthority {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Role(String name) {
         this.name = name;
@@ -49,17 +58,13 @@ public class Role implements GrantedAuthority {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     @Override
     public String toString() {

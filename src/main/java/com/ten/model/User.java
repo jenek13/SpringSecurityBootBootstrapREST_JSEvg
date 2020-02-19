@@ -74,6 +74,12 @@ public class User implements UserDetails {
 
     }
 
+    public User(String login, String password, Set<Role> roles) {
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
+    }
+
     public User(Long id, String login, String password, boolean enabled) {
         this.id = id;
         this.login = login;
@@ -81,6 +87,11 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;

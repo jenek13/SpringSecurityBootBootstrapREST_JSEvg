@@ -83,6 +83,33 @@ public class AdminRestController {
     }
 
 
+
+
+
+
+
+    /*@PostMapping("/admin/create")
+    public ResponseEntity<Void> addUser(@RequestBody User user
+                                        ,  @RequestParam(value = "role", required = false) String role
+    ) {
+        //String role = null;
+        //role = user.getRoles().iterator().next().getName();
+        user.setRoles(getRoles(role));
+        userService.insertUser(user);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping(value = {"/admin/edit/{id}"})
     public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.selectUser(id));
