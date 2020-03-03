@@ -44,47 +44,109 @@ $(document).ready(function(){
 
 
 function saveUser() {
-
-    // let userarr = {
-    //     var login = $('#newlogin').val();
-    //     var password = $('#newpassword').val();
-    //     roles: {
-    //         roleName: $('#newrole').val();
-    //     }
-    // }
-
     var login = $('#newlogin').val();
     var password = $('#newpassword').val();
-    var roles = [];
-
+    var role = [];
     var selectRoles = $('#newrole').val();
     for (var i = 0; i < selectRoles.length; i++) {
-        roles.push(JSON.parse('{"id":"' + parseInt(selectRoles[i].id) + '", "name":"' + String(selectRoles[i].value) + '"}'));
+        role.push(JSON.parse('{"id":"' + parseInt(selectRoles[i].id) + '", "name":"' + String(selectRoles[i].value) + '"}'));
     }
-
     var user = {
         login: login,
         password: password,
-        roles: roles
+        roles: role
     }
     $.ajax({
         url: '/rest/admin/create',
+        success: function(){
+            //$('#nav-home-tab').show;
+            $('#nav-home-tab').tab('show');
+        },
         type: 'POST',
         contentType: "application/json",
         dataType: 'json',
         data: JSON.stringify(user)
-
         // data: {не работало изза этих строчек что был джсон в джсоне
         //     user: JSON.stringify(user),
         //     role: selectRoles
         // }
-
     });
+    //$('#nav-home-tab').tab('show');
+    //$('#nav-home-tab').show();
+    switchTab();
+}
+
+function switchTab() {
+    $('#nav-home-tab').tab('show');
 }
 
 
 
 
+
+
+
+
+
+
+//update user
+function updateUser() {
+//preventdefault при нажатии on sent event prevent html form with js ajax
+    //добавить юзера как в криэйте котрого стринглифайить
+    //найти пример апдейта
+    //$('#myModal #id').val(response.id);
+    var id = $('#id').val();
+    var login = $('#login').val();
+    var password = $('#password').val();
+    var role = [];
+    var selectRoles = $('#role').val();
+    for (var i = 0; i < selectRoles.length; i++) {
+        role.push(JSON.parse('{"id":"' + parseInt(selectRoles[i].id) + '", "name":"' + String(selectRoles[i].value) + '"}'));
+    }
+
+
+    var user = {
+        id: id,
+        login: login,
+        password: password,
+        roles: role
+    }
+    $.ajax({
+            url: '/rest/doUpdate',
+            type: 'POST',
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify(user)
+
+
+        }
+    )
+
+}
+//
+// function mySubmitFunction(e) {
+//     e.preventDefault();
+//
+//     return false;
+// }
+
+//openEditForm
+function openEditForm(id) {
+    $.ajax({
+        url: '/rest/admin/edit/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            $('#myModal #id').val(response.id);
+            $('#myModal #login').val(response.login);
+            $('#myModal #password').val(response.password);
+            $('#myModal #roles').val(response.roles[0].name);
+            console.log();
+            $('#myModal').modal('show');
+        }
+    })
+}
 
 // function saveUser() {
 //     var login = $('#newlogin').val();
@@ -127,31 +189,6 @@ function saveUser() {
 //         });
 //     }
 // }
-
-
-
-
-
-
-//openEditForm
-function openEditForm(id) {
-    $.ajax({
-        url: '/rest/admin/edit/' + id,
-        type: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            console.log(response);
-            $('#myModal #id').val(response.id);
-            $('#myModal #login').val(response.login);
-            $('#myModal #password').val(response.password);
-            $('#myModal #roles').val(response.roles[0].name);
-            console.log();
-            $('#myModal').modal('show');
-        }
-    })
-}
-
-
 
 //delete user
 function deleteUser(id) {

@@ -87,6 +87,12 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
+    public User(Long id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+            }
+
 
     public User(String login, String password) {
         this.login = login;
@@ -94,7 +100,7 @@ public class User implements UserDetails {
     }
 
     public Long getId() {
-        return id;
+        return id;//тут возвращает налл
     }
 
     public void setId(Long id) {

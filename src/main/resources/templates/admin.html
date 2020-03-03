@@ -37,69 +37,74 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <h4>All users</h4>
-            <table class="table table-striped" id="table">
-                <tr>
-                    <th>Id</th>
-                    <th>Login</th>
-                    <th>Password</th>
-                    <th>Role</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                </tr>
+                <h4>All users</h4>
+                <table class="table table-striped" id="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                        <th>Delete</th>
+                        <th>Edit</th>
+                    </tr>
 
 
                     <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <!--Form code start from here  -->
-                                <!-- Form Name -->
-                                <legend>Edit user </legend>
-                                <form action="/doUpdate" method="POST" class="form-group mt-0 pt-1">
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="id">ID</label>
-                                        <div class="col-md-4">
-                                            <input id="id" name="id" type="text" placeholder="id" class="form-control input-md" />
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="login">Login</label>
-                                        <div class="col-md-4">
-                                            <input id="login" name="login" type="text" placeholder="Login" class="form-control input-md" />
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="password">Password</label>
-                                        <div class="col-md-4">
-                                            <input id="password" name="password" type="text" placeholder="password" class="form-control input-md"/>
-                                        </div>
-
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--Form code start from here  -->
+                                    <!-- Form Name -->
+                                    <legend>Edit user </legend>
+                                    <form onsubmit="return mySubmitFunction(event)"class="form-group mt-0 pt-1">
+<!--                                        <form  action="/rest/doUpdate" method="post" class="form-group mt-0 pt-1">-->
                                         <!-- Text input-->
-                                        <div class="form-group col-md-12">
-                                            <label class="col-form-label">Current Role</label>
-                                            <div class="col-md-12">
-                                                <input id="roles" name="roles" type="text" placeholder="roles" class="form-control input-md"/>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="id">ID</label>
+                                            <div class="col-md-4">
+                                                <input id="id" name="id" type="text" placeholder="id" class="form-control input-md" />
                                             </div>
-                                            <select class="form-control" name="roles" >
-                                                <option value="user">user</option>
-                                                <option value="admin">admin</option>
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="login">Login</label>
+                                            <div class="col-md-4">
+                                                <input id="login" name="login" type="text" placeholder="Login" class="form-control input-md" />
+                                            </div>
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="password">Password</label>
+                                            <div class="col-md-4">
+                                                <input id="password" name="password" type="text" placeholder="password" class="form-control input-md"/>
+                                            </div>
+
+<!--                                            &lt;!&ndash; Text input&ndash;&gt;-->
+<!--                                            <div class="form-group col-md-12">-->
+<!--                                                <label class="col-form-label">Current Role</label>-->
+<!--                                                <div class="col-md-12">-->
+<!--                                                    <input id="roles" name="roles" type="text" placeholder="roles" class="form-control input-md"/>-->
+<!--                                                </div>-->
+<!--                                                <select class="form-control" name="roles" >-->
+<!--                                                    <option value="user">user</option>-->
+<!--                                                    <option value="admin">admin</option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+                                            <select class="form-control" name="role" id="role">
+                                                <option id = "4" value="2">user</option>
+                                                <option id="3" value="1">admin</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="form-group-item btn btn-info">Update user</button>
-                                </form>
+                                        <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+                                        <button class="form-group-item btn btn-info" onclick="updateUser()">Update user</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </table>
             </div>
@@ -111,7 +116,8 @@
                     <h3> Add User</h3>
                     <div class="card">
                         <div class="card-body">
-                            <form action="#" method="post">
+<!--                            <form action="#" method="post">-->
+                                <form>
                                 <div class="row">
                                 </div>
                                 <div class="form-group col-md-8">
@@ -122,25 +128,29 @@
                                 </div>
                                 <div class="form-group col-md-8">
                                     <label class="col-form-label">Role</label>
-<!--                                    <p><b>С какими операционными системами вы знакомы?</b></p>-->
-<!--                                    <p><input type="checkbox" name="option1" value="admin" checked>admin<Br>-->
-<!--                                    <p><input type="checkbox" name="option1" value="user" checked>user<Br>-->
+                                    <!--                                    <p><b>С какими операционными системами вы знакомы?</b></p>-->
+                                    <!--                                    <p><input type="checkbox" name="option1" value="admin" checked>admin<Br>-->
+                                    <!--                                    <p><input type="checkbox" name="option1" value="user" checked>user<Br>-->
 
                                     <select class="form-control" name="role" id="newrole">
                                         <option id = "2" value="2">user</option>
                                         <option id="1" value="1">admin</option>
                                     </select>
 
-<!--                                    <select class="form-control" name="role" id="newrole">-->
-<!--                                        <option value="user">user</option>-->
-<!--                                        <option value="admin">admin</option>-->
-<!--                                    </select>-->
+                                    <!--                                    <select class="form-control" name="role" id="newrole">-->
+                                    <!--                                        <option value="user">user</option>-->
+                                    <!--                                        <option value="admin">admin</option>-->
+                                    <!--                                    </select>-->
                                 </div>
 
 
 
                                 <div class="col-md-6">
-                                    <input type="submit" class="btn btn-primary" onclick="saveUser()" value="Add User">
+<!--                                    <input type="submit" class="btn btn-primary" onclick="saveUser()" value="Add User">-->
+                                    <button type="submit" class="btn btn-primary" onclick="saveUser()">Add User</button>
+<!--                                    <button type="submit" class="btn btn-outline-primary">Главный</button>-->
+
+
                                 </div>
                                 <div class="form-group col-md-8"></div>
                             </form>

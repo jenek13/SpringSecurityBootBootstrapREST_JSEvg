@@ -46,68 +46,16 @@ public class AdminRestController {
         return ResponseEntity.ok(userService.listUser());
     }
 
-
-
-//    @PostMapping(value = {"/admin"})//создание
-//    public String addUser(@RequestParam("login") String login, @RequestParam("password") String password,
-//                          @RequestParam(value = "role", required = false) String role) {
-//        User user = new User(login, password, true);
-//        user.setRoles(getRoles(role));
-//        userService.insertUser(user);
-//        return "redirect:/admin";
-//    }
-
-//    @PostMapping("/admin/create")
-//    public ResponseEntity<Void> addUser(@RequestBody User user
-//            ,  @RequestParam(value = "role", required = false) String role
-//    ) {
-//        //String role = null;
-//        //role = user.getRoles().iterator().next().getName();
-//        user.setRoles(getRoles(role));
-//        //String role1 =  user.setRoles(getRoles(role));
-//        userService.insertUser(user);
-//        return new ResponseEntity<Void>(HttpStatus.OK);
-//    }
-
-
-
     @PostMapping("/admin/create")
-    public ResponseEntity<Void> addUser(@RequestBody User user
-                                        //,  @RequestParam(value = "role", required = false) String role
-    ) {
-        String role = null;
-        role = user.getRoles().iterator().next().getName();
-        user.setRoles(getRoles(role));
-        userService.insertUser(user);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
-
-
-
-
-
-
-
-    /*@PostMapping("/admin/create")
     public ResponseEntity<Void> addUser(@RequestBody User user
                                         ,  @RequestParam(value = "role", required = false) String role
     ) {
         //String role = null;
-        //role = user.getRoles().iterator().next().getName();
+        role = user.getRoles().iterator().next().getName();
         user.setRoles(getRoles(role));
         userService.insertUser(user);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }*/
-
-
-
-
-
-
-
-
-
-
+        return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж
+    }
 
 
     @GetMapping(value = {"/admin/edit/{id}"})
@@ -115,16 +63,22 @@ public class AdminRestController {
         return ResponseEntity.ok(userService.selectUser(id));
     }
 
-    @RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
-    String updateUser(@Valid @ModelAttribute("user")User user, @ModelAttribute("role") Role role) {
-        User user1 = userService.selectUser(user.getId());
+
+    @PostMapping(value = {"/doUpdate"})
+    ResponseEntity<Void> updateUser(@RequestBody User user
+            ,  @RequestParam(value = "role", required = false) String role) {
+
+        User user1 = userService.selectUser(user.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
         user1.setId(user.getId());
         user1.setLogin(user.getLogin());
         user1.setPassword(user.getPassword());
-        user1.setRoles(getRoles(role.getName()));
+        role = user.getRoles().iterator().next().getName();
+        user.setRoles(getRoles(role));//тут приходит роль налл
         userService.insertUser(user1);
-        return "redirect:/admin";
+        return new ResponseEntity<Void>(HttpStatus.OK);
+        //return "redirect:/admin";
     }
+
 
     @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
