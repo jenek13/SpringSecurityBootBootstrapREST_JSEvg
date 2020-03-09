@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
@@ -46,16 +47,64 @@ public class AdminRestController {
         return ResponseEntity.ok(userService.listUser());
     }
 
+
+//    @PostMapping(value = {"/admin"})//создание
+//    public String addUser(@RequestParam("login") String login, @RequestParam("password") String password,
+//                          @RequestParam(value = "role", required = false) String role) {
+//        User user = new User(login, password, true);
+//        user.setRoles(getRoles(role));
+//        userService.insertUser(user);
+//        return "redirect:/admin";
+//    }
+
+
+//    @PostMapping("/admin/create")
+//    public ResponseEntity<Void> addUser(@RequestBody User user
+//            ,  @RequestParam(value = "role", required = false) String role
+//    ) {
+//        //String role = null;
+//        role = user.getRoles().iterator().next().getName();
+//        user.setRoles(getRoles(role));
+//        userService.insertUser(user);
+//        return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж
+//    }
+
+
     @PostMapping("/admin/create")
     public ResponseEntity<Void> addUser(@RequestBody User user
-                                        ,  @RequestParam(value = "role", required = false) String role
+           // ,@RequestParam(value = "id", required = false) Long id
     ) {
         //String role = null;
-        role = user.getRoles().iterator().next().getName();
-        user.setRoles(getRoles(role));
-        userService.insertUser(user);
+//        role = user.getRoles().iterator().next().getName();
+//        user.setRoles(getRoles(role));
+
+        Long id = user.getId();
+
+
+        User newuser = new User(user.getLogin(), user.getPassword(), true );
+        newuser.setRoles((getRolesbyID(id)));
+        userService.insertUser(newuser);
         return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж
     }
+
+
+
+
+
+
+
+
+
+//    @PostMapping("/admin/create")
+//    public ResponseEntity<Void> addUser(@RequestBody User user
+//            ,  @RequestParam(value = "role", required = false) Role role
+//    ) {
+//        //String role = null;
+//        //role = user.getRoles().iterator().next().getName();
+//        user.setRoles(getRoles(role.getName()));
+//        userService.insertUser(user);
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//    }
 
 
     @GetMapping(value = {"/admin/edit/{id}"})
@@ -108,7 +157,7 @@ public class AdminRestController {
                 roles.add(roleService.getRoleById(1L));
                 break;
             case "user":
-                roles.add(roleService.getRoleById(2L));
+                roles.add(roleService.getRoleById(2L));//вместо рольсервис будет юезер
                 break;
             default:
                 roles.add(roleService.getRoleById(2L));
@@ -118,6 +167,19 @@ public class AdminRestController {
         return roles;
     }
 
+    private Set<Role> getRolesbyID(Long id) {
+        Set<Role> roles = new HashSet<>();
+
+        if (id == 1) {
+            roles.add(roleService.getRoleByName("admin"));
+        } else if (id == 2) {
+            roles.add(roleService.getRoleByName("ROLE_USER"));
+        } else {
+            roles.add(roleService.getRoleByName("user"));
+        }
+
+        return roles;
+    }
 
 
 }

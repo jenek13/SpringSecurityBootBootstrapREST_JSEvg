@@ -74,10 +74,11 @@ public class User implements UserDetails {
 
     }
 
-    public User(String login, String password, Set<Role> roles) {
+    public User(String login, String password, Set<Role> roles, boolean enabled) {
         this.login = login;
         this.password = password;
         this.roles = roles;
+        this.enabled = enabled;
     }
 
     public User(Long id, String login, String password, boolean enabled) {
@@ -91,7 +92,10 @@ public class User implements UserDetails {
         this.id = id;
         this.login = login;
         this.password = password;
-            }
+    }
+
+
+
 
 
     public User(String login, String password) {
