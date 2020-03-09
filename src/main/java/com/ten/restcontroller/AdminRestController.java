@@ -171,11 +171,11 @@ public class AdminRestController {
         Set<Role> roles = new HashSet<>();
 
         if (id == 1) {
-            roles.add(roleService.getRoleByName("admin"));
+            roles.add(roleService.getRoleByName("ROLE_ADMIN"));
         } else if (id == 2) {
             roles.add(roleService.getRoleByName("ROLE_USER"));
         } else {
-            roles.add(roleService.getRoleByName("user"));
+            roles.add(roleService.getRoleByName("ROLE_USER"));
         }
 
         return roles;
