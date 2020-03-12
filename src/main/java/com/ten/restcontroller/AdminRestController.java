@@ -72,15 +72,10 @@ public class AdminRestController {
 
     @PostMapping("/admin/create")
     public ResponseEntity<Void> addUser(@RequestBody User user
-           // ,@RequestParam(value = "id", required = false) Long id
     ) {
-        //String role = null;
-//        role = user.getRoles().iterator().next().getName();
-//        user.setRoles(getRoles(role));
+        //надо пыло понять что id приходит внутри юзера а не отедльно поэмту не рабоатл реквестпарам приходил налл
 
         Long id = user.getId();
-
-
         User newuser = new User(user.getLogin(), user.getPassword(), true );
         newuser.setRoles((getRolesbyID(id)));
         userService.insertUser(newuser);
@@ -88,8 +83,41 @@ public class AdminRestController {
     }
 
 
+    @PostMapping(value = {"/doUpdate"})
+    ResponseEntity<Void> updateUser(@RequestBody User user) {
+        Long id = user.getRole();
+        User user1 = userService.selectUser(user.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
+        user1.setId(user.getId());
+        user1.setLogin(user.getLogin());
+        user1.setPassword(user.getPassword());
 
 
+        //Long[] role = user.getRoles();
+
+        user1.setRoles((getRolesbyID(id)));//тут приходит роль налл
+        userService.insertUser(user1);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+        //return "redirect:/admin";
+    }
+
+
+//    @PostMapping(value = {"/doUpdate"})
+//    ResponseEntity<Void> updateUser(@RequestBody User user) {
+//
+//
+//        User user1 = userService.selectUser(user.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
+//        user1.setId(user.getId());
+//        user1.setLogin(user.getLogin());
+//        user1.setPassword(user.getPassword());
+//
+//        //String rolenew = String.valueOf(user.getRolesg());
+//        Set<Role> roles = getRolesg(rolenew);
+//        //role = user.getRoles().iterator().next().getName();
+//        user.setRoles(getRolesg(rolenew));//тут приходит роль налл
+//        userService.insertUser(user1);
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//        //return "redirect:/admin";
+//    }
 
 
 
@@ -113,20 +141,7 @@ public class AdminRestController {
     }
 
 
-    @PostMapping(value = {"/doUpdate"})
-    ResponseEntity<Void> updateUser(@RequestBody User user
-            ,  @RequestParam(value = "role", required = false) String role) {
 
-        User user1 = userService.selectUser(user.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
-        user1.setId(user.getId());
-        user1.setLogin(user.getLogin());
-        user1.setPassword(user.getPassword());
-        role = user.getRoles().iterator().next().getName();
-        user.setRoles(getRoles(role));//тут приходит роль налл
-        userService.insertUser(user1);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-        //return "redirect:/admin";
-    }
 
 
     @DeleteMapping("/admin/delete/{id}")
@@ -144,14 +159,10 @@ public class AdminRestController {
         return model;
     }
 
-    @GetMapping(value = "/error")
-    public String accessDenied() {
-        return "error";
-    }
 
-    private Set<Role> getRoles(String role) {
+
+    private Set<Role> getRolesg(String role) {
         Set<Role> roles = new HashSet<>();
-
         switch (role) {
             case "admin":
                 roles.add(roleService.getRoleById(1L));
@@ -163,7 +174,6 @@ public class AdminRestController {
                 roles.add(roleService.getRoleById(2L));
                 break;
         }
-
         return roles;
     }
 
@@ -181,7 +191,10 @@ public class AdminRestController {
         return roles;
     }
 
-
+    @GetMapping(value = "/error")
+    public String accessDenied() {
+        return "error";
+    }
 }
 
 

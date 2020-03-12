@@ -81,6 +81,23 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
+
+    Long role;
+
+    public Long getRole() {
+        return role;
+    }
+
+    public void setRole(Long role) {
+        this.role = role;
+    }
+
+    public User(String login, String password, Long role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
     public User(Long id, String login, String password, boolean enabled) {
         this.id = id;
         this.login = login;

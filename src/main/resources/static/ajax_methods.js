@@ -234,18 +234,14 @@ function updateUser() {
     var id = $('#id').val();
     var login = $('#login').val();
     var password = $('#password').val();
-    var role = [];
-    var selectRoles = $('#role').val();
-    for (var i = 0; i < selectRoles.length; i++) {
-        role.push(JSON.parse('{"id":"' + parseInt(selectRoles[i].id) + '", "name":"' + String(selectRoles[i].value) + '"}'));
-    }
-
+    //var role = [];
+    var role =  $('#role' ).children(':selected').attr('value')//в скобках id селектора
 
     var user = {
         id: id,
         login: login,
         password: password,
-        roles: role
+        role: role
     }
     $.ajax({
             url: '/rest/doUpdate',
@@ -253,8 +249,6 @@ function updateUser() {
             contentType: "application/json",
             dataType: 'json',
             data: JSON.stringify(user)
-
-
         }
     )
 
