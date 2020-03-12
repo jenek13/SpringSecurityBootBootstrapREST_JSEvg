@@ -192,14 +192,12 @@ function saveUser() {
     //получит айди выбранного  $('#2').val();
     var id =  $('#newrole' ).children(':selected').attr('id')//в скобках id селектора
 
-//if if равно 1 или 2
     var user = {
         login: login,
         password: password,
          //roles: role
         id: id
     }
-
     $.ajax({
         url: '/rest/admin/create',
         success: function(){

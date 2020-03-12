@@ -69,12 +69,10 @@ public class AdminRestController {
 //        return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж
 //    }
 
-
     @PostMapping("/admin/create")
     public ResponseEntity<Void> addUser(@RequestBody User user
     ) {
         //надо пыло понять что id приходит внутри юзера а не отедльно поэмту не рабоатл реквестпарам приходил налл
-
         Long id = user.getId();
         User newuser = new User(user.getLogin(), user.getPassword(), true );
         newuser.setRoles((getRolesbyID(id)));
@@ -90,10 +88,7 @@ public class AdminRestController {
         user1.setId(user.getId());
         user1.setLogin(user.getLogin());
         user1.setPassword(user.getPassword());
-
-
         //Long[] role = user.getRoles();
-
         user1.setRoles((getRolesbyID(id)));//тут приходит роль налл
         userService.insertUser(user1);
         return new ResponseEntity<Void>(HttpStatus.OK);
