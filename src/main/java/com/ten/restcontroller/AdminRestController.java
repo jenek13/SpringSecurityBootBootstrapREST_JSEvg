@@ -91,11 +91,10 @@ public class AdminRestController {
         userService.insertUser(newUser);
     }
 
+    private Set<Role> getRolesbyID(Long id) {
+        return roleService.getRolesbyID(id);
 
-
-
-
-
+    }
 
 
     @PostMapping(value = {"/doUpdate"})
@@ -112,20 +111,7 @@ public class AdminRestController {
         //return "redirect:/admin";
     }
 
-    private Set<Role> getRolesbyID(Long id) {
-        Set<Role> roles = new HashSet<>();
 
-        if (id == 1) {
-            //roles.add(roleService.getRoleByName("ROLE_ADMIN"));
-            roles.add(roleService.getRoleById(1L));
-        } else if (id == 2) {
-            roles.add(roleService.getRoleById(2L));
-        } else {
-            roles.add(roleService.getRoleById(2L));
-        }
-
-        return roles;
-    }
 
 
 //    @PostMapping(value = {"/doUpdate"})

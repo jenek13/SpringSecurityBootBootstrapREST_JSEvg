@@ -19,5 +19,5 @@ public interface RoleService {
 
     void deleteRoleById(Long id);
 
-    //Set<Role> getRolesbyID(Long id);
+    Set<Role> getRolesbyID(Long id);
 }
