@@ -1,5 +1,6 @@
 package com.ten.restcontroller;
 
+import com.ten.dto.UserDTO;
 import com.ten.model.Role;
 import com.ten.model.User;
 import com.ten.service.RoleService;
@@ -69,16 +70,32 @@ public class AdminRestController {
 //        return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж
 //    }
 
+//    @PostMapping("/admin/create")
+//    public ResponseEntity<Void> addUser(@RequestBody User user
+//    ) {
+//        //надо пыло понять что id приходит внутри юзера а не отедльно поэмту не рабоатл реквестпарам приходил налл
+//        Long id = user.getId();
+//        User newuser = new User(user.getLogin(), user.getPassword(), true );
+//        newuser.setRoles((getRolesbyID(id)));
+//        userService.insertUser(newuser);
+//        return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж Это послженее что работало
+//    }
+
+
     @PostMapping("/admin/create")
-    public ResponseEntity<Void> addUser(@RequestBody User user
-    ) {
-        //надо пыло понять что id приходит внутри юзера а не отедльно поэмту не рабоатл реквестпарам приходил налл
-        Long id = user.getId();
-        User newuser = new User(user.getLogin(), user.getPassword(), true );
-        newuser.setRoles((getRolesbyID(id)));
-        userService.insertUser(newuser);
-        return new ResponseEntity<Void>(HttpStatus.OK);//тут возращает на ерор педж
+    public void postAdd(@RequestBody UserDTO userDTO) {
+        User newUser = new User();
+        newUser.setLogin(userDTO.getLogin());
+        newUser.setPassword(userDTO.getPassword());
+        newUser.setRoles(getRolesbyID(userDTO.getRole()));
+        userService.insertUser(newUser);
     }
+
+
+
+
+
+
 
 
     @PostMapping(value = {"/doUpdate"})
@@ -93,6 +110,21 @@ public class AdminRestController {
         userService.insertUser(user1);
         return new ResponseEntity<Void>(HttpStatus.OK);
         //return "redirect:/admin";
+    }
+
+    private Set<Role> getRolesbyID(Long id) {
+        Set<Role> roles = new HashSet<>();
+
+        if (id == 1) {
+            //roles.add(roleService.getRoleByName("ROLE_ADMIN"));
+            roles.add(roleService.getRoleById(1L));
+        } else if (id == 2) {
+            roles.add(roleService.getRoleById(2L));
+        } else {
+            roles.add(roleService.getRoleById(2L));
+        }
+
+        return roles;
     }
 
 
@@ -172,19 +204,7 @@ public class AdminRestController {
         return roles;
     }
 
-    private Set<Role> getRolesbyID(Long id) {
-        Set<Role> roles = new HashSet<>();
 
-        if (id == 1) {
-            roles.add(roleService.getRoleByName("ROLE_ADMIN"));
-        } else if (id == 2) {
-            roles.add(roleService.getRoleByName("ROLE_USER"));
-        } else {
-            roles.add(roleService.getRoleByName("ROLE_USER"));
-        }
-
-        return roles;
-    }
 
     @GetMapping(value = "/error")
     public String accessDenied() {

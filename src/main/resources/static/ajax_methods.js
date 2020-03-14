@@ -185,18 +185,21 @@ function deleteUser(id) {
 // }
 
 function saveUser() {
+
     var login = $('#newlogin').val();
     var password = $('#newpassword').val();
     //var role = $('#newrole').val();
     //var id = $('#newrole').val();
     //получит айди выбранного  $('#2').val();
-    var id =  $('#newrole' ).children(':selected').attr('id')//в скобках id селектора
+    //var id =  $('#newrole' ).children(':selected').attr('id')//в скобках id селектора
+
+    var role = $('#newrole').val();
 
     var user = {
         login: login,
         password: password,
-         //roles: role
-        id: id
+         role: role
+        //id: id
     }
     $.ajax({
         url: '/rest/admin/create',

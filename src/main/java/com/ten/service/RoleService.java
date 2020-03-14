@@ -3,6 +3,7 @@ package com.ten.service;
 import com.ten.model.Role;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RoleService {
 
@@ -17,4 +18,6 @@ public interface RoleService {
     void updateRole(Role role);
 
     void deleteRoleById(Long id);
+
+    //Set<Role> getRolesbyID(Long id);
 }
