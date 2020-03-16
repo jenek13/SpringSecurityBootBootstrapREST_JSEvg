@@ -1,4 +1,8 @@
-$(document).ready(function(){
+$(document).ready( function () {
+    read();
+});
+
+function read(){
     //сюда внести имя функции на создание а не так внутри
     //из делита вызвать рид функцию чтоб обновить данные с базы
     // у кнопики етс ьайди на нее повесть не дефолтное поведение т епревентдефол мтеод
@@ -21,10 +25,10 @@ $(document).ready(function(){
                     //'<td><button onclick="openEditForm('+ item.id +')" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> Edit</button></td>' +
                     '</tr>';
             });
-            $('#table').append(trHTML);
+            $('#table').find('tbody').html(trHTML);
         }
     });
-});
+}
 
 //старое создание где работет создание без ролей
 // function saveUser() {
@@ -66,47 +70,7 @@ $(document).ready(function(){
 //     });
 // }
 
-// function saveUser() {
-//     var login = $('#newlogin').val();
-//     var password = $('#newpassword').val();
-//     //var roleName = $('#newrole').val();
-//     let arr = []; // вот сюда надо сохранить данные
-//     var t = this;
-//
-//     $.ajax({
-//         url: '/rest/admin/create',
-//         type: 'POST',
-//         contentType: "application/json",
-//         dataType: 'json',
-//         data: JSON.stringify({
-//             username: login,
-//             password: password,
-//             //roleName: roleName,
-//             var recive = JSON.parse(data),
-//
-//         })
-//
-//     });
-//
-// }
-//
-// var obj = {
-//     ar: [], // вот сюда надо сохранить данные
-//     get: function (id) {
-//         // var t = this.ar; // пробовал не помогает
-//         var t = this;
-//         $.ajax({
-//             url: 'get.php',
-//             type: 'post',
-//             data: {num: id},
-//             success: function (data) {
-//                 var recive = JSON.parse(data); // <=== possible error
-//                 // this.ar = recive.split(','); // this не правильный ...
-//                 t.ar = recive.split(',');
-//             }
-//         });
-//     }
-// }
+
 
 //openEditForm
 function openEditForm(id) {
@@ -130,97 +94,62 @@ function openEditForm(id) {
 function deleteUser(id) {
     $.ajax({
         url: '/rest/admin/delete/' + id,
-        //processData: false,
         type: 'DELETE',
         dataType: 'json',
-        // data: {
-        //     id: id,
-        // },
-        //data : JSON.stringify({ id: id }),
-        //}
         var: id = $(this).data('id'),
         data: {
             id
-        },}
-    )
+        },
+        complete: function () {
+            read();
+            console.log(5);
+        }
+        })
+
 }
 
-// function saveUser() {
-//     var login = $('#newlogin').val();
-//     var password = $('#newpassword').val();
-//     //var role = $('#newrole').val();
-//     var role = [];
-//     var selectRoles = $('#newrole').val();
-//
-//     //получит айди выбранного  $('#2').val();
-//
-//     // for (var i = 0; i < selectRoles.length; i++) {
-//     //     role.push(JSON.parse('{"id":"' + parseInt(selectRoles[i].id) + '", "name":"' + String(selectRoles[i].value) + '"}'));
-//     // }
-//
-//     var user = {
-//         login: login,
-//         password: password,
-//         // roles: role
-//         role: selectRoles
-//     }
-//     $.ajax({
-//         url: '/rest/admin/create',
-//         success: function(){
-//             //$('#nav-home-tab').show;
-//             $('#nav-home-tab').tab('show');
-//         },
-//         type: 'POST',
-//         contentType: "application/json",
-//         dataType: 'json',
-//         data: JSON.stringify(user)
-//         // data: {не работало изза этих строчек что был джсон в джсоне
-//         //     user: JSON.stringify(user),
-//         //     role: selectRoles
-//         // }
-//     });
-//     //$('#nav-home-tab').tab('show');
-//     //$('#nav-home-tab').show();
-//     switchTab();
-// }
+//  .click( function(event) {
+// ….
+// })
 
-function saveUser() {
+$("savebutton").click(function (event) {
+console.log(78)
+//function saveUser() {
+event.preventDefault();
 
     var login = $('#newlogin').val();
     var password = $('#newpassword').val();
-    //var role = $('#newrole').val();
-    //var id = $('#newrole').val();
-    //получит айди выбранного  $('#2').val();
-    //var id =  $('#newrole' ).children(':selected').attr('id')//в скобках id селектора
-
     var role = $('#newrole').val();
 
     var user = {
         login: login,
         password: password,
          role: role
-        //id: id
     }
+
     $.ajax({
         url: '/rest/admin/create',
         success: function(){
-            //$('#nav-home-tab').show;
             $('#nav-home-tab').tab('show');
+        },
+        complete: function () {
+            read();
+            console.log(5);
         },
         type: 'POST',
         contentType: "application/json",
         dataType: 'json',
         data: JSON.stringify(user),
-        //processData: false
-        // data: {не работало изза этих строчек что был джсон в джсоне
-        //     user: JSON.stringify(user),
-        //     role: selectRoles
-        // }
     });
-    //$('#nav-home-tab').tab('show');
-    //$('#nav-home-tab').show();
     switchTab();
-}
+})
+
+
+
+
+
+
+
 
 function switchTab() {
     $('#nav-home-tab').tab('show');

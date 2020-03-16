@@ -96,22 +96,38 @@ public class AdminRestController {
 
     }
 
-
     @PostMapping(value = {"/doUpdate"})
-    ResponseEntity<Void> updateUser(@RequestBody User user) {
-        Long id = user.getRole();
-        User user1 = userService.selectUser(user.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
-        user1.setId(user.getId());
-        user1.setLogin(user.getLogin());
-        user1.setPassword(user.getPassword());
+    ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
+        Long id = userDTO.getRole();
+        User updatedUser = userService.selectUser(userDTO.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
+        updatedUser.setId(userDTO.getId());
+        updatedUser.setLogin(userDTO.getLogin());
+        updatedUser.setPassword(userDTO.getPassword());
         //Long[] role = user.getRoles();
-        user1.setRoles((getRolesbyID(id)));//тут приходит роль налл
-        userService.insertUser(user1);
+        updatedUser.setRoles((getRolesbyID(id)));//тут приходит роль налл
+        userService.insertUser(updatedUser);
         return new ResponseEntity<Void>(HttpStatus.OK);
         //return "redirect:/admin";
     }
 
 
+
+
+
+
+//    @PostMapping(value = {"/doUpdate"})
+//    ResponseEntity<Void> updateUser(@RequestBody User user) {
+//        Long id = user.getRole();
+//        User user1 = userService.selectUser(user.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
+//        user1.setId(user.getId());
+//        user1.setLogin(user.getLogin());
+//        user1.setPassword(user.getPassword());
+//        //Long[] role = user.getRoles();
+//        user1.setRoles((getRolesbyID(id)));//тут приходит роль налл
+//        userService.insertUser(user1);
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//        //return "redirect:/admin";
+//    }
 
 
 //    @PostMapping(value = {"/doUpdate"})
