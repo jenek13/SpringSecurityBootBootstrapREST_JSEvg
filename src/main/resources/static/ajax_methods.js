@@ -69,7 +69,6 @@ function deleteUser(id) {
 }
 
 $("#savebutton").click(function (event) {
-console.log(78);
 //function saveUser() {
 event.preventDefault();
 
@@ -100,21 +99,16 @@ event.preventDefault();
     switchTab();
 })
 
-
-
-
-
-
-
-
 function switchTab() {
     $('#nav-home-tab').tab('show');
 }
 
 
+$("#updatebutton").click(function (event) {
 
+  event.preventDefault();
 //update user
-function updateUser() {
+//function updateUser() {
     var id = $('#id').val();
     var login = $('#login').val();
     var password = $('#password').val();
@@ -132,9 +126,13 @@ function updateUser() {
             type: 'POST',
             contentType: "application/json",
             dataType: 'json',
-            data: JSON.stringify(user)
+            data: JSON.stringify(user),
+        complete: function () {
+            read();
+            console.log(57);
+        }
         }
     )
 
-}
+})
 
