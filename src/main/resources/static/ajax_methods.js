@@ -30,46 +30,6 @@ function read(){
     });
 }
 
-//старое создание где работет создание без ролей
-// function saveUser() {
-//
-//     // let userarr = {
-//     //     var login = $('#newlogin').val();
-//     //     var password = $('#newpassword').val();
-//     //     roles: {
-//     //         roleName: $('#newrole').val();
-//     //     }
-//     // }
-//
-//     var login = $('#newlogin').val();
-//     var password = $('#newpassword').val();
-//     var roles = [];
-//
-//     //var selectRoles = $('input:checked');
-//     var selectRoles = $('#newrole').val();
-//     for (var i = 0; i < selectRoles.length; i++) {
-//         roles.push(JSON.parse('{"id":"' + parseInt(selectRoles[i].id) + '", "name":"' + String(selectRoles[i].value) + '"}'));
-//     }
-//
-//     var user = JSON.stringify({
-//         login: login,
-//         password: password,
-//         //roles: roles
-//     })
-//     $.ajax({
-//         url: '/rest/admin/create',
-//         type: 'POST',
-//         contentType: "application/json",
-//         dataType: 'json',
-//         data: JSON.stringify(user)
-//         // data: {
-//         //     user: JSON.stringify(user),
-//         //     role: selectRoles
-//         // }
-//
-//     });
-// }
-
 
 
 //openEditForm
@@ -108,12 +68,8 @@ function deleteUser(id) {
 
 }
 
-//  .click( function(event) {
-// ….
-// })
-
-$("savebutton").click(function (event) {
-console.log(78)
+$("#savebutton").click(function (event) {
+console.log(78);
 //function saveUser() {
 event.preventDefault();
 
@@ -155,12 +111,10 @@ function switchTab() {
     $('#nav-home-tab').tab('show');
 }
 
+
+
 //update user
 function updateUser() {
-//preventdefault при нажатии on sent event prevent html form with js ajax
-    //добавить юзера как в криэйте котрого стринглифайить
-    //найти пример апдейта
-    //$('#myModal #id').val(response.id);
     var id = $('#id').val();
     var login = $('#login').val();
     var password = $('#password').val();
